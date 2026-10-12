@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review Phim - Trang Chủ</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Thanh điều hướng / Tiêu đề website -->
+  <header class="site-header">
+    <div class="container header-container">
+      <h1 class="logo"><a href="index.html">🎬 CineReview</a></h1>
+      <nav>
+        <a href="index.html" class="nav-link active">Trang Chủ</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Phần hiển thị danh sách phim -->
+  <main class="container main-content">
+    <section class="hero-section">
+      <h2>Khám Phá & Đánh Giá Phim</h2>
+      <p>Tổng hợp thông tin, điểm IMDb và tóm tắt không spoil dành cho bạn.</p>
+
+      <!-- 1. Ô tìm kiếm phim giao diện Dark Mode -->
+      <div class="search-container">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Tìm kiếm phim theo tên (ví dụ: Batman, Avatar, Spider-Man...)"
+            autocomplete="off"
+          />
+          <button
+            type="button"
+            id="clear-search-btn"
+            class="clear-btn"
+            aria-label="Xóa tìm kiếm"
+            title="Xóa nội dung tìm kiếm"
+            hidden
+          >&times;</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nơi JavaScript sẽ chèn danh sách phim vào -->
+    <div id="movie-list" class="movie-grid">
+      <p class="loading-text">Đang tải danh sách phim...</p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2026 CineReview. Dự án học tập HTML, CSS, JavaScript thuần.</p>
+    </div>
+  </footer>
+
+  <!-- Nạp các file JavaScript -->
+  <script src="js/api.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>

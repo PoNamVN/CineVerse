@@ -147,3 +147,10 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+.env
+.env.*
+!.env.example
+node_modules/
+.agents/
+.claude/
+skills-lock.json

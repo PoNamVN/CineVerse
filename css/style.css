@@ -1,0 +1,319 @@
+/* ===================================================
+   CineReview - CSS
+   Phong cách giao diện tối (Dark mode) hiện đại
+   =================================================== */
+
+/* 1. Thiết lập chung (Reset cơ bản) */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #0f172a; /* Nền xanh đen sang trọng */
+  color: #f8fafc;            /* Chữ trắng ngà */
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Khung căn giữa nội dung */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* 2. Header & Thanh điều hướng */
+.site-header {
+  background-color: #1e293b;
+  border-bottom: 1px solid #334155;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #38bdf8; /* Xanh ngọc nổi bật */
+}
+
+.nav-link {
+  color: #94a3b8;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #ffffff;
+  background-color: #334155;
+}
+
+/* 3. Phần nội dung chính (Main) */
+.main-content {
+  flex: 1;
+  padding: 2.5rem 0;
+}
+
+.hero-section {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.hero-section h2 {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+  color: #f8fafc;
+}
+
+.hero-section p {
+  color: #94a3b8;
+  font-size: 1.05rem;
+}
+
+/* Thanh tìm kiếm (Search Bar) */
+.search-container {
+  margin: 1.75rem auto 0;
+  max-width: 600px;
+  width: 100%;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background-color: #1e293b;
+  border: 2px solid #334155;
+  border-radius: 9999px; /* Dáng bo tròn hình viên thuốc */
+  padding: 0.65rem 1.25rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-box:focus-within {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15);
+}
+
+.search-icon {
+  font-size: 1.1rem;
+  color: #94a3b8;
+  margin-right: 0.75rem;
+  user-select: none;
+}
+
+#search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #f8fafc;
+  font-size: 1rem;
+}
+
+#search-input::placeholder {
+  color: #64748b;
+}
+
+.clear-btn {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 0.25rem;
+  margin-left: 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.clear-btn:hover {
+  color: #f8fafc;
+}
+
+/* 4. Lưới danh sách phim (CSS Grid) */
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.75rem;
+}
+
+/* 5. Thẻ phim (Movie Card) */
+.movie-card {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  cursor: pointer;
+}
+
+.movie-card:hover {
+  transform: translateY(-8px);
+  border-color: #38bdf8;
+  box-shadow: 0 16px 30px -10px rgba(0, 0, 0, 0.7);
+}
+
+/* Khung ảnh poster */
+.poster-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3; /* Tỉ lệ chuẩn của poster phim */
+  background-color: #0b1120;
+  overflow: hidden;
+}
+
+.poster-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.movie-card:hover .poster-wrapper img {
+  transform: scale(1.06);
+}
+
+/* Huy hiệu điểm IMDb trên poster */
+.rating-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.3rem 0.55rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #f8fafc;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.star-icon {
+  font-size: 0.85rem;
+}
+
+/* Thông tin tên và năm bên dưới thẻ */
+.movie-info {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.movie-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  margin-bottom: 0.6rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* Cắt ngắn nếu tên phim dài quá 1 dòng */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.movie-card:hover .movie-title {
+  color: #38bdf8;
+}
+
+.movie-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+
+.movie-year {
+  background-color: #334155;
+  color: #e2e8f0;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.movie-type-tag {
+  color: #64748b;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* 6. Trạng thái Đang tải (Loading) & Báo lỗi / Không có kết quả */
+.loading-state,
+.error-state {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4.5rem 1rem;
+  text-align: center;
+  color: #94a3b8;
+  gap: 1rem;
+}
+
+.spinner {
+  width: 44px;
+  height: 44px;
+  border: 4px solid #334155;
+  border-top-color: #38bdf8;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error-state {
+  color: #cbd5e1;
+}
+
+/* 7. Khung chi tiết phim (dành cho movie.html ở bước sau) */
+.movie-detail-container {
+  background-color: #1e293b;
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid #334155;
+}
+
+/* 8. Footer */
+.site-footer {
+  background-color: #1e293b;
+  border-top: 1px solid #334155;
+  text-align: center;
+  padding: 1.5rem 0;
+  color: #64748b;
+  font-size: 0.9rem;
+  margin-top: auto;
+}
