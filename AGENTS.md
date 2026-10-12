@@ -29,4 +29,8 @@ Take the first option that fully works:
 
 Never cut: validation at trust boundaries, error handling that prevents data loss, security, accessibility, the calibration real hardware needs, anything the user asked for.
 
-(Yes, this file also applies to agents working on the ponytail repo itself. Especially to them.)
+## Bảo mật & Biến môi trường (.env)
+- TUYỆT ĐỐI KHÔNG commit bất kỳ file `.env` hoặc để lộ token TMDB/API keys lên Git.
+- Mọi biến môi trường mới bắt buộc phải khai báo giá trị mẫu (placeholder) trong `.env.example`.
+- Trước khi commit, luôn kiểm tra `git status` đảm bảo không có file secret nào bị theo dõi.
+

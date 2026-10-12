@@ -1,87 +1,92 @@
 /**
  * js/api.js
- * Quản lý các hàm gọi OMDb API bằng fetch (async/await)
+ * Quản lý các hàm gọi API thông qua backend Express (http://localhost:5000)
  */
 
-// 1. Cấu hình API Key và đường dẫn cơ sở
-// Bạn có thể đăng ký key miễn phí tại: https://www.omdbapi.com/apikey.aspx
-// Ở đây dùng key test sẵn có 'trilogy' để bạn có thể chạy thử ngay lập tức!
-const OMDB_API_KEY = "trilogy";
-const OMDB_BASE_URL = "https://www.omdbapi.com/";
+const API_BASE = "http://localhost:5000";
 
 /**
- * 1. Hàm tìm kiếm danh sách phim theo từ khóa
- * @param {string} keyword - Từ khóa tên phim (ví dụ: "batman", "avatar")
- * @returns {Promise<Array>} - Mảng danh sách các phim tìm thấy hoặc [] nếu có lỗi
+ * 1. Lấy danh sách phim phổ biến / theo thể loại từ backend
+ * @param {number} page - Số trang cần lấy (mặc định 1)
+ * @param {string|number} genre - ID thể loại TMDB nếu cần lọc (ví dụ 28 cho Hành Động)
+ * @returns {Promise<{ results: Array, page: number, total_pages: number }>}
  */
-async function searchMovies(keyword) {
-  // Kiểm tra nếu từ khóa rỗng hoặc chỉ có khoảng trắng
-  if (!keyword || keyword.trim() === "") {
-    console.warn("Vui lòng nhập từ khóa tìm kiếm!");
-    return [];
-  }
-
-  const url = `${OMDB_BASE_URL}?apikey=${OMDB_API_KEY}&s=${encodeURIComponent(keyword.trim())}&type=movie`;
-
+async function getPopularMovies(page = 1, genre = "") {
   try {
+    const url = `${API_BASE}/api/movies/popular?page=${page}${genre ? `&genre=${encodeURIComponent(genre)}` : ""}`;
     const response = await fetch(url);
-
-    // Kiểm tra mã phản hồi HTTP (ví dụ: 404, 500)
     if (!response.ok) {
-      throw new Error(`Lỗi kết nối máy chủ (Mã lỗi HTTP: ${response.status})`);
+      const errData = await response.json().catch(() => ({}));
+      throw new Error(errData.error || `Lỗi máy chủ: ${response.status}`);
     }
-
-    const data = await response.json();
-
-    // OMDb trả về Response: "True" khi thành công, hoặc "False" khi có lỗi logic (không thấy phim, v.v.)
-    if (data.Response === "True") {
-      console.log(`Tìm thấy ${data.Search.length} phim cho từ khóa "${keyword}":`, data.Search);
-      return data.Search;
-    } else {
-      console.warn(`Không tìm thấy phim: ${data.Error}`);
-      return [];
-    }
+    return await response.json();
   } catch (error) {
-    // Xử lý lỗi mất mạng (offline), URL sai hoặc lỗi mạng đột ngột
-    console.error("Lỗi khi gọi API tìm kiếm phim (kiểm tra kết nối mạng của bạn):", error.message);
-    return [];
+    console.error(`[getPopularMovies] Lỗi khi gọi trang ${page} (thể loại: ${genre}):`, error.message);
+    throw error;
   }
 }
 
 /**
- * 2. Hàm lấy chi tiết một bộ phim theo imdbID
- * @param {string} imdbID - Mã định danh phim trên IMDb (ví dụ: "tt0372784")
- * @returns {Promise<Object|null>} - Đối tượng chi tiết phim hoặc null nếu lỗi
+ * 2. Tìm kiếm phim theo từ khóa từ backend
+ * @param {string} query - Từ khóa tìm kiếm
+ * @param {number} page - Số trang (mặc định 1)
+ * @returns {Promise<{ results: Array, page: number, total_pages: number }>}
  */
-async function getMovieDetail(imdbID) {
-  if (!imdbID || imdbID.trim() === "") {
-    console.warn("Vui lòng cung cấp mã imdbID hợp lệ!");
-    return null;
+async function searchMovies(query, page = 1) {
+  if (!query || query.trim() === "") {
+    return { results: [], page: 1, total_pages: 1 };
   }
 
-  // plot=full để lấy toàn bộ nội dung tóm tắt cốt truyện đầy đủ
-  const url = `${OMDB_BASE_URL}?apikey=${OMDB_API_KEY}&i=${encodeURIComponent(imdbID.trim())}&plot=full`;
-
   try {
-    const response = await fetch(url);
-
+    const response = await fetch(
+      `${API_BASE}/api/movies/search?query=${encodeURIComponent(query.trim())}&page=${page}`
+    );
     if (!response.ok) {
-      throw new Error(`Lỗi kết nối máy chủ (Mã lỗi HTTP: ${response.status})`);
+      const errData = await response.json().catch(() => ({}));
+      throw new Error(errData.error || `Lỗi máy chủ: ${response.status}`);
     }
-
-    const data = await response.json();
-
-    if (data.Response === "True") {
-      console.log(`Lấy chi tiết phim "${data.Title}" thành công:`, data);
-      return data;
-    } else {
-      console.warn(`Không thể lấy chi tiết phim: ${data.Error}`);
-      return null;
-    }
+    return await response.json();
   } catch (error) {
-    console.error("Lỗi khi gọi API chi tiết phim (kiểm tra kết nối mạng của bạn):", error.message);
-    return null;
+    console.error(`[searchMovies] Lỗi tìm kiếm "${query}":`, error.message);
+    throw error;
   }
 }
 
-console.log("api.js: Đã nạp thành công 2 hàm searchMovies() và getMovieDetail().");
+/**
+ * 3. Lấy thông tin chi tiết một bộ phim theo ID từ backend
+ * @param {number|string} id - ID phim
+ * @returns {Promise<Object|null>}
+ */
+async function getMovieDetail(id) {
+  if (!id) return null;
+
+  try {
+    const response = await fetch(`${API_BASE}/api/movies/${id}`);
+    if (!response.ok) {
+      const errData = await response.json().catch(() => ({}));
+      throw new Error(errData.error || `Lỗi máy chủ: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error(`[getMovieDetail] Lỗi lấy chi tiết phim ${id}:`, error.message);
+    throw error;
+  }
+}
+
+/**
+ * 4. Lấy danh sách thể loại phim từ backend
+ * @returns {Promise<Array>}
+ */
+async function getGenres() {
+  try {
+    const response = await fetch(`${API_BASE}/api/genres`);
+    if (!response.ok) return [];
+    const data = await response.json();
+    return data.genres || [];
+  } catch (error) {
+    console.warn("[getGenres] Không lấy được thể loại:", error.message);
+    return [];
+  }
+}
+
+console.log("api.js: Đã kết nối với backend tại", API_BASE);

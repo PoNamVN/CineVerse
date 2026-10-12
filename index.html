@@ -3,61 +3,234 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Review Phim - Trang Chủ</title>
+  <title>CineFlix - Trải Nghiệm Điện Ảnh Đỉnh Cao Chuẩn Netflix</title>
+  <!-- Google Fonts: Montserrat (Font tiêu đề điện ảnh uy lực chuẩn quốc tế), Oswald & Be Vietnam Pro -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Montserrat:ital,wght@0,800;0,900;1,900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-  <!-- Thanh điều hướng / Tiêu đề website -->
-  <header class="site-header">
-    <div class="container header-container">
-      <h1 class="logo"><a href="index.html">🎬 CineReview</a></h1>
-      <nav>
-        <a href="index.html" class="nav-link active">Trang Chủ</a>
-      </nav>
+<body class="netflix-body">
+
+  <!-- ========================================================
+       1. THANH ĐIỀU HƯỚNG HEADER (Sticky with scroll blur)
+       ======================================================== -->
+  <header class="netflix-header" id="site-header">
+    <div class="header-inner">
+      <!-- Cột trái: Logo & Menu điều hướng -->
+      <div class="header-left">
+        <a href="index.html" class="netflix-brand">
+          <span class="brand-text">CINE<span class="brand-accent">FLIX</span></span>
+        </a>
+        <nav class="netflix-nav">
+          <a href="#hero-billboard" class="nav-item active">Trang Chủ</a>
+          <a href="#top10-section" class="nav-item">Top 10 Hôm Nay</a>
+          <a href="#genre-rows" class="nav-item">Thể Loại</a>
+          <a href="#watchlist-section" class="nav-item" id="nav-watchlist-btn">
+            Danh Sách Của Tôi <span class="watchlist-badge" id="watchlist-count">0</span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- Cột phải: Ô tìm kiếm & Tài khoản -->
+      <div class="header-right">
+        <!-- Hộp tìm kiếm thông minh -->
+        <div class="netflix-search-wrap">
+          <button type="button" class="search-toggle-btn" id="search-toggle-btn" aria-label="Mở tìm kiếm">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </button>
+          <div class="search-input-box" id="search-box">
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Tìm tên phim bất kỳ..."
+              autocomplete="off"
+            />
+            <button
+              type="button"
+              id="clear-search-btn"
+              class="clear-search-btn"
+              aria-label="Xóa tìm kiếm"
+              hidden
+            >&times;</button>
+          </div>
+        </div>
+
+        <!-- Nút truy cập nhanh Danh Sách Đã Lưu -->
+        <a href="#watchlist-section" class="header-watchlist-btn" title="Xem danh sách đã lưu">
+          <span>Đã Lưu</span>
+        </a>
+      </div>
     </div>
   </header>
 
-  <!-- Phần hiển thị danh sách phim -->
-  <main class="container main-content">
-    <section class="hero-section">
-      <h2>Khám Phá & Đánh Giá Phim</h2>
-      <p>Tổng hợp thông tin, điểm IMDb và tóm tắt không spoil dành cho bạn.</p>
+  <!-- ========================================================
+       2. SIÊU BANNER TOÀN CẢNH (HERO BILLBOARD)
+       ======================================================== -->
+  <section class="hero-billboard" id="hero-billboard">
+    <!-- Hình nền động toàn cảnh kèm hiệu ứng làm tối đa tầng -->
+    <div class="billboard-bg" id="billboard-bg"></div>
+    <div class="billboard-vignette-left"></div>
+    <div class="billboard-vignette-bottom"></div>
 
-      <!-- 1. Ô tìm kiếm phim giao diện Dark Mode -->
-      <div class="search-container">
-        <div class="search-box">
-          <span class="search-icon">🔍</span>
-          <input
-            type="text"
-            id="search-input"
-            placeholder="Tìm kiếm phim theo tên (ví dụ: Batman, Avatar, Spider-Man...)"
-            autocomplete="off"
-          />
-          <button
-            type="button"
-            id="clear-search-btn"
-            class="clear-btn"
-            aria-label="Xóa tìm kiếm"
-            title="Xóa nội dung tìm kiếm"
-            hidden
-          >&times;</button>
-        </div>
+    <!-- Nội dung phim bom tấn nổi bật -->
+    <div class="billboard-content">
+      <div class="billboard-badge">
+        <span class="n-logo">N</span>
+        <span class="n-text">ĐẶC SẮC TRÊN CINEFLIX</span>
+      </div>
+
+      <h1 class="billboard-title" id="billboard-title">Đang tải siêu phẩm điện ảnh...</h1>
+
+      <!-- Thông số nổi bật -->
+      <div class="billboard-meta">
+        <span class="meta-rating" id="billboard-rating"></span>
+        <span class="meta-year" id="billboard-year"></span>
+      </div>
+
+      <p class="billboard-overview" id="billboard-overview">
+        Khám phá kho tàng phim đỉnh cao không giới hạn. Dữ liệu thời gian thực được đồng bộ trực tiếp từ The Movie Database.
+      </p>
+
+      <!-- Các nút hành động chính (Dẫn trực tiếp đến chi tiết & trailer) -->
+      <div class="billboard-actions">
+        <a href="#" class="btn-primary-detail" id="billboard-info-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          <span class="btn-text">Xem Chi Tiết Phim</span>
+        </a>
+
+        <button type="button" class="btn-secondary-save" id="billboard-add-btn" title="Lưu vào danh sách">
+          <span class="round-icon">+</span>
+          <span class="save-text">Lưu Danh Sách</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Chấm chỉ báo slideshow (render bởi JS) -->
+    <div class="hero-dots" id="hero-dots" role="tablist" aria-label="Chọn phim nổi bật"></div>
+  </section>
+
+  <!-- ========================================================
+       3. NỘI DUNG CHÍNH (MAIN CONTAINER)
+       ======================================================== -->
+  <main class="main-container">
+
+    <!-- A. DÃI BỘ LỌC THỂ LOẠI NHANH (GENRE PILL BAR) -->
+    <section class="genre-section">
+      <div class="genre-bar" id="genre-bar">
+        <button type="button" class="genre-pill active" data-genre="">Tất Cả Thể Loại</button>
+        <button type="button" class="genre-pill" data-genre="28">Hành Động</button>
+        <button type="button" class="genre-pill" data-genre="878">Khoa Học Viễn Tưởng</button>
+        <button type="button" class="genre-pill" data-genre="16">Hoạt Hình</button>
+        <button type="button" class="genre-pill" data-genre="35">Hài Hước</button>
+        <button type="button" class="genre-pill" data-genre="27">Kinh Dị</button>
+        <button type="button" class="genre-pill" data-genre="18">Tâm Lý</button>
+        <button type="button" class="genre-pill" data-genre="12">Phiêu Lưu</button>
       </div>
     </section>
 
-    <!-- Nơi JavaScript sẽ chèn danh sách phim vào -->
-    <div id="movie-list" class="movie-grid">
-      <p class="loading-text">Đang tải danh sách phim...</p>
-    </div>
+    <!-- B. DÃY TOP 10 PHIM HOT NHẤT HÔM NAY (NETFLIX NUMBERED ROW) -->
+    <section class="netflix-row-section" id="top10-section">
+      <div class="row-header">
+        <h2 class="row-title">
+          <span class="red-bar"></span>
+          Top 10 Phim Hot Nhất Hôm Nay
+        </h2>
+      </div>
+
+      <div class="top10-carousel-wrapper">
+        <button type="button" class="carousel-arrow arrow-left" id="top10-prev-btn" aria-label="Cuộn sang trái">‹</button>
+        
+        <div class="top10-track" id="top10-track">
+          <!-- Các thẻ phim Top 10 kèm số khổng lồ 1..10 được render động bởi JavaScript -->
+        </div>
+
+        <button type="button" class="carousel-arrow arrow-right" id="top10-next-btn" aria-label="Cuộn sang phải">›</button>
+      </div>
+    </section>
+
+    <!-- B2. CÁC HÀNG PHIM CUỘN NGANG THEO THỂ LOẠI (render bởi JS) -->
+    <div id="genre-rows"></div>
+
+    <!-- C. DANH SÁCH CỦA TÔI (MY WATCHLIST) -->
+    <section class="netflix-row-section" id="watchlist-section" hidden>
+      <div class="row-header">
+        <h2 class="row-title">
+          <span class="red-bar"></span>
+          Danh Sách Của Tôi
+        </h2>
+        <button type="button" class="clear-watchlist-btn" id="clear-watchlist-btn">Xóa Toàn Bộ</button>
+      </div>
+      <div class="movie-grid" id="watchlist-grid">
+        <!-- Render danh sách phim yêu thích -->
+      </div>
+    </section>
+
+    <!-- D. TẤT CẢ PHIM THỊNH HÀNH & THANH CÔNG CỤ SẮP XẾP -->
+    <section class="netflix-row-section" id="trending-section">
+      <div class="row-header row-header-flex">
+        <h2 class="row-title" id="section-heading">
+          <span class="red-bar"></span>
+          Phim Thịnh Hành Trên CineFlix
+        </h2>
+
+        <!-- Thanh công cụ sắp xếp tính năng cao -->
+        <div class="sort-toolbar" id="sort-toolbar">
+          <span class="sort-label">Sắp xếp:</span>
+          <button type="button" class="sort-pill active" data-sort="default">Phổ Biến</button>
+          <button type="button" class="sort-pill" data-sort="rating">Điểm Cao</button>
+          <button type="button" class="sort-pill" data-sort="latest">Mới Nhất</button>
+          <button type="button" class="sort-pill" data-sort="az">A - Z</button>
+        </div>
+      </div>
+
+      <!-- Lưới phim chuẩn Netflix -->
+      <div id="movie-list" class="movie-grid"></div>
+
+      <!-- Nút Tải thêm phim -->
+      <div class="load-more-wrap">
+        <button type="button" id="load-more-btn" class="btn-netflix-more" hidden>
+          <span class="more-text">TẢI THÊM PHIM BOM TẤN</span>
+        </button>
+      </div>
+    </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <p>&copy; 2026 CineReview. Dự án học tập HTML, CSS, JavaScript thuần.</p>
+  <!-- ========================================================
+       4. CHÂN TRANG NETFLIX (FOOTER)
+       ======================================================== -->
+  <footer class="netflix-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <p class="footer-call">Hỗ trợ điện ảnh trực tuyến &bull; Dữ liệu thời gian thực từ The Movie Database (TMDB).</p>
+      </div>
+
+      <div class="footer-links">
+        <a href="#">Câu hỏi thường gặp</a>
+        <a href="#">Trung tâm trợ giúp</a>
+        <a href="#">Điều khoản sử dụng</a>
+        <a href="#">Quyền riêng tư</a>
+        <a href="#">Tùy chọn cookie</a>
+        <a href="#">Thông tin doanh nghiệp</a>
+        <a href="#">Kiểm tra tốc độ</a>
+        <a href="#">Thông báo pháp lý</a>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-brand">CINEFLIX VIETNAM &bull; Đồng bộ bản quyền TMDB API.</p>
+        <p class="footer-copy">&copy; 2026 CineFlix. Trải nghiệm điện ảnh đỉnh cao.</p>
+      </div>
     </div>
   </footer>
 
-  <!-- Nạp các file JavaScript -->
+  <!-- Scripts -->
   <script src="js/api.js"></script>
   <script src="js/home.js"></script>
 </body>

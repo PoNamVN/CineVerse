@@ -3,34 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CineReview - Chi Tiết Phim</title>
+  <title>CineFlix - Chi Tiết Phim Chuẩn Netflix</title>
+  <!-- Google Fonts: Montserrat, Be Vietnam Pro & Oswald -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Montserrat:ital,wght@0,800;0,900;1,900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-  <!-- Thanh điều hướng -->
-  <header class="site-header">
-    <div class="container header-container">
-      <h1 class="logo"><a href="index.html">🎬 CineReview</a></h1>
-      <nav>
-        <a href="index.html" class="nav-link">&larr; Quay lại danh sách</a>
-      </nav>
+<body class="netflix-body">
+  <div class="detail-backdrop" id="detail-backdrop" aria-hidden="true"></div>
+
+  <!-- Header Netflix -->
+  <header class="netflix-header" id="site-header">
+    <div class="header-inner">
+      <div class="header-left">
+        <a href="index.html" class="netflix-brand">
+          <span class="brand-text">CINE<span class="brand-accent">FLIX</span></span>
+        </a>
+      </div>
+      <div class="header-right">
+        <a href="index.html" class="btn-netflix-back">
+          <span class="back-arrow">&larr;</span> Quay Lại Trang Chủ
+        </a>
+      </div>
     </div>
   </header>
 
-  <!-- Phần hiển thị chi tiết bộ phim -->
-  <main class="container main-content">
+  <!-- Vùng hiển thị chi tiết bộ phim -->
+  <main class="main-container detail-main">
     <div id="movie-detail" class="movie-detail-container">
-      <p class="loading-text">Đang tải thông tin chi tiết phim...</p>
+      <div class="loading-state">
+        <div class="netflix-spinner"></div>
+        <p>Đang chuẩn bị thông tin siêu phẩm...</p>
+      </div>
     </div>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <p>&copy; 2026 CineReview. Dự án học tập HTML, CSS, JavaScript thuần.</p>
+  <!-- Chân trang Netflix -->
+  <footer class="netflix-footer">
+    <div class="footer-inner">
+      <div class="footer-bottom">
+        <p class="footer-brand">CINEFLIX VIETNAM &bull; Dữ liệu bản quyền TMDB API.</p>
+        <p class="footer-copy">&copy; 2026 CineFlix. Trải nghiệm điện ảnh đỉnh cao chuẩn Netflix.</p>
+      </div>
     </div>
   </footer>
 
-  <!-- Nạp các file JavaScript -->
+  <!-- Scripts -->
   <script src="js/api.js"></script>
   <script src="js/movie.js"></script>
 </body>
